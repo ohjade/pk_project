@@ -34,7 +34,7 @@ def get_readme():
 # Go!
 setup(
     # Module name (lowercase)
-    name='pkmodel',
+    name='pkmodel_stupiders',
 
     # Version
     version=get_version(),
@@ -45,9 +45,7 @@ setup(
 
     license='MIT license',
 
-    # author='',
-
-    # author_email='',
+    author='Jamie, Yang, Jade, Lucy, Douglas',
 
     maintainer='Martin Robinson',
 

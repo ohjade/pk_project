@@ -22,7 +22,11 @@ The `Model` class represents a pharmacokinetic model. It provides methods for sp
 Initialize a new pharmacokinetic model.
 
 Parameters:
-- `parameter1(need to be updated)`: 
+1. The dose function Dose(t), which could consist of instantaneous doses of X ng of the drug at one or more time points, or a steady application of X ng per hour over a given time period, or some combination.
+2. Vc [mL], the volume of the central compartment
+3. Vp1 [mL], the volume of the first peripheral compartment
+4. CL [mL/h], the clearance/elimination rate from the central compartment
+5. Qp1  [mL/h], the transition rate between central compartment and peripheral compartment 1
 
 Example:
 

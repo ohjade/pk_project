@@ -1,6 +1,5 @@
 #Prototype of input GUI to make things more end-user friendly.
 #I need to figure out how to pass the user input on to the correct variables in the model
-#Right now all the GUI does is print the user inputs haha
 
 import tkinter as tk
 from tkinter import messagebox

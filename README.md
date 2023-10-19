@@ -9,23 +9,29 @@ Install the library using pip:
 ```bash
 pip install -i https://test.pypi.org/simple/ pkmodel-stupiders==1.0.0
 ```
-## Example
 
-```import pkmodel
 
-# Define your PK model
+## API Documentation
+
+### Model Class
+
+The `Model` class represents a pharmacokinetic model. It provides methods for specifying and solving the model.
+
+#### `Model.__init__(...)`
+
+Initialize a new pharmacokinetic model.
+
+Parameters:
+- `parameter1(need to be updated)`: 
+
+Example:
+
+```python
+import pkmodel
+
+# Create a two-compartment model
 model = pkmodel.Model(...)
-
-# Specify dosing protocol
-protocol = pkmodel.Protocol(...)
-
-# Solve the PK model
-solution = model.solve(protocol)
-
-# Visualize the results
-solution.plot()
 ```
-
 ## License
 
 PKModel is licensed under the [MIT License](https://opensource.org/licenses/MIT).

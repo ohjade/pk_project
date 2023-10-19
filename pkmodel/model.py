@@ -4,31 +4,57 @@
 
 class Model:
 
-    def __init__(self, name, Q_p1, V_c, V_p1, CL, X):
+    def __init__(self, name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka):
         self.name = name
-        self.Q_p1 = Q_p1
-        self.V_c = V_c
-        self.V_p1 = V_p1
-        self.CL = CL
-        self.X = X
-      
+        self.ncomp = ncomp          # no. peripheral compartments
+        self.method = method        # dosing protocol
+        self.Q_p = Q_p              # transition rate between central and peripheral compartment(s)
+        self.V_c = V_c              # volume of central compartment
+        self.V_p = V_p              # volume of peripheral compartments(s)
+        self.CL = CL                # rate of clearance from central compartment
+        self.X = X                  # doseage amount
+        self.ka = Ka                # dose absorption rate
+
     def dose(self, t, X):
-        return X
+            return X
 
     def rhs(self, t, y):
-        q_c, q_p1 = y
-        transition = self.Q_p1 * (q_c / self.V_c - q_p1 / self.V_p1)
-        dqc_dt = Model.dose(self, t, self.X) - q_c / self.V_c * self.CL - transition
-        dqp1_dt = transition
-        return [dqc_dt, dqp1_dt]
+        import numpy as np
+        if self.method == "intravenous":
+            q_c = y[0]
+            q_p = y[1:]
+            transitions = []
+            dqp_dts = []
+            for i in range(0, self.ncomp):
+                transitions.append(self.Q_p[i] * (q_c / self.V_c - q_p[i] / self.V_p[i]))
+                dqp_dts.append(transitions[i])
+            dqc_dt = Model.dose(self, t, self.X) - q_c / self.V_c * self.CL - np.sum(transitions)
+            
+            return [dqc_dt, *dqp_dts]
+        
+        if self.method == "subcutaneous":
+            q0, q_c, = y [0:2]
+            q_p = y[2:]           
+            transitions = []
+            dqp_dts = []
+            for i in range(0, self.ncomp):
+                transitions.append(self.Q_p[i] * (q_c / self.V_c - q_p[i] / self.V_p[i]))
+                dqp_dts.append(transitions[i])
+            dq0_dt = Model.dose(self, t, self.X) - (self.ka * q0)
+            dqc_dt =( self.ka * q0) - q_c / self.V_c * self.CL - np.sum(transitions)
+
+            return [dqc_dt, *dqp_dts, dq0_dt]
+
     
     def solve(self):
 
         import numpy as np
         import scipy.integrate
-
+    
         t_eval = np.linspace(0, 1, 1000)
-        y0 = np.array([0.0, 0.0])
+        y0 = np.zeros(self.ncomp + 1)           # set initial concentrations in all compartments to 0
+        if self.method == "subcutaneous":       # add extra compartment for drug absorption to main compartment
+            y0 = np.zeros(self.ncomp + 2)       # need at least 2, one central, one q0 and then peripheral compartments
 
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: Model.rhs(self, t, y),
@@ -41,18 +67,14 @@ class Plot(Model):
 
     def __init__(self, Model):
         import matplotlib.pylab as plt
-        import numpy as np
-        import scipy.integrate
 
-        # t_eval = np.linspace(0, 1, 1000)
-        # y0 = np.array([0.0, 0.0])
-
-        #fig = plt.figure()
-        # for model in [Model.parameters, Model.parameters]:
-            #print(list(Model.parameters.values())[1:])
         sol = Model.solve()
+        
         plt.plot(sol.t, sol.y[0, :], label=Model.name + '- q_c')
-        plt.plot(sol.t, sol.y[1, :], label=Model.name + '- q_p1')
+        for i in range(0, Model.ncomp):
+            plt.plot(sol.t, sol.y[1 + i, :], label=Model.name + f'- q_p{i}')
+        if Model.method == "subcutaneous":
+            plt.plot(sol.t, sol.y[-1, :], label=Model.name + '- q0')
     
 
         plt.legend()
@@ -61,7 +83,7 @@ class Plot(Model):
         plt.show()
 
 
-default = Model("default",1,1,1,1,1)
-print(default.name)
-pl = Plot(default)
+# default = Model("default",1,"subcutaneous",1,1,1,1,1,1)
+# default = Model("default",3,"subcutaneous",[1,2,5],1,[1,2,3],1,1,1)
+# pl = Plot(default)
 

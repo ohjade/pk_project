@@ -39,7 +39,7 @@ setup(
     # Version
     version=get_version(),
 
-    description='An example Python project.',
+    description='PKModel is a Python library for specifying, solving, and visualizing the solutions of pharmacokinetic (PK) models. It provides a flexible framework for modeling the distribution and elimination of drugs in the body.',
 
     long_description=get_readme(),
 
@@ -47,7 +47,7 @@ setup(
 
     author='Jamie, Yang, Jade, Lucy, Douglas',
 
-    maintainer='Martin Robinson',
+    maintainer='Martin Robinson', 
 
     maintainer_email='martin.robinson@cs.ox.ac.uk',
 

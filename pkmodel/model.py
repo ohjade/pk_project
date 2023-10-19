@@ -6,14 +6,14 @@ class Model:
 
     def __init__(self, name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka):
         self.name = name
-        self.ncomp = ncomp          # no. peripheral compartments
-        self.method = method        # dosing protocol
-        self.Q_p = Q_p              # transition rate between central and peripheral compartment(s)
-        self.V_c = V_c              # volume of central compartment
-        self.V_p = V_p              # volume of peripheral compartments(s)
-        self.CL = CL                # rate of clearance from central compartment
-        self.X = X                  # doseage amount
-        self.ka = Ka                # dose absorption rate
+        self.ncomp = ncomp                                                  # no. peripheral compartments
+        self.method = method                                                # dosing protocol
+        self.Q_p = [Q_p] if not isinstance(Q_p, list) else Q_p              # transition rate between central and peripheral compartment(s)
+        self.V_c = V_c                                                      # volume of central compartment
+        self.V_p = [V_p] if not isinstance(V_p, list) else V_p              # volume of peripheral compartments(s)
+        self.CL = CL                                                        # rate of clearance from central compartment
+        self.X = X                                                          # doseage amount
+        self.ka = Ka                                                        # dose absorption rate
 
     def dose(self, t, X):
             return X
@@ -83,7 +83,12 @@ class Plot(Model):
         plt.show()
 
 
-# default = Model("default",1,"subcutaneous",1,1,1,1,1,1)
-# default = Model("default",3,"subcutaneous",[1,2,5],1,[1,2,3],1,1,1)
-# pl = Plot(default)
+###### This is how you run a model ######
+# the parameter names in order are given below def __init__
+# to add more compartments, increase ncomp, and add lists for V_p and Q_p
+# where index represents the compartment id
+
+#default = Model("default",1,"subcutaneous",1,1,1,1,1,1)
+default = Model("default",1,"intravenous",1,1,1,1,1,1)
+pl = Plot(default)
 

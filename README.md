@@ -36,6 +36,11 @@ import pkmodel
 # Create a two-compartment model
 model = pkmodel.Model(...)
 ```
+
+## Testing
+Run tests in the Terminal with with `python -m unittest <path/to/test.py>`
+(I'll write more info on the different test files here)
+
 ## License
 
 PKModel is licensed under the [MIT License](https://opensource.org/licenses/MIT).

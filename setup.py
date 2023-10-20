@@ -34,22 +34,21 @@ def get_readme():
 # Go!
 setup(
     # Module name (lowercase)
-    name='pkmodel',
+    name='pkmodel_stupiders',
 
     # Version
     version=get_version(),
 
-    description='An example Python project.',
+    description='PKModel is a Python library ',
 
-    long_description=get_readme(),
+    long_description=open('README.rst').read(),
+    long_description_content_type='text/x-rst',
 
     license='MIT license',
 
-    # author='',
+    author='Jamie, Yang, Jade, Lucy, Douglas',
 
-    # author_email='',
-
-    maintainer='Martin Robinson',
+    maintainer='Martin Robinson', 
 
     maintainer_email='martin.robinson@cs.ox.ac.uk',
 

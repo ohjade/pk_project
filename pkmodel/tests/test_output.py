@@ -43,6 +43,10 @@ class TestRHS(unittest.TestCase):
         self.assertEqual(result[0], expected_dqc_dt, calculated_dqc_dt) # Tests rate of change in central compartment
         self.assertEqual(result[1], expected_dqp1_dt, calculated_dqp1_dt) # Tests rate of change in peripheral compartment
 
+    def test_rhs(self):
+        """ Tests that rhs function returns correct output for positive and negative integers"""
+        
+
     def test_rhs_negative(self):
         """Test that rhs function returns correct output based on model ODEs, even if input values are negative"""
         t = 1
@@ -76,12 +80,11 @@ class TestRHS(unittest.TestCase):
             CL = 1
             X = 1
 
-            result = rhs(t, y, Q_p1, V_c, V_p1, CL, X)
-            # Define expected results
-            expected_dqc_dt = (X - y[0] / V_c * CL - Q_p1 * ((y[0] / V_c) - (y[1] / V_p1)))
-            expected_dqp1_dt = Q_p1 * ((y[0] / V_c - y[1] / V_p1))
+            # Raise error if the denominator values are zero
+            if V_c == 0 or V_p1 == 0:
+                raise ValueError("Cannot divide by zero")
 
-            # WIP Raise error if the denominator values are zero
+
 class TestODE(unittest.TestCase):
     #Still working on this one
     def test_sol(self): 

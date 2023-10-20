@@ -13,3 +13,5 @@ class ModelTest(unittest.TestCase):
         model = pk.Model()
         self.assertEqual(model.value, 42)
 
+if __name__ == '__main__':
+    unittest.main()

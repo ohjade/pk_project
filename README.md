@@ -7,7 +7,7 @@ PKModel is a Python library for specifying, solving, and visualizing the solutio
 Install the library using pip:
 
 ```bash
-pip install -i https://test.pypi.org/simple/ pkmodel-stupiders==1.0.0
+pip install -i https://test.pypi.org/simple/ pkmodel-stupiders
 ```
 
 

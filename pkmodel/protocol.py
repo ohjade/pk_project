@@ -1,17 +1,41 @@
-#
-# Protocol class
-#
+# protocol.py
+import numpy as np
 
 class Protocol:
-    """A Pharmokinetic (PK) protocol
 
-    Parameters
-    ----------
+    def evaluate(self, t, y):
+        model = self.model
+        if model.method == "intravenous":
+            return self._intravenous_protocol(t, y)
+        elif model.method == "subcutaneous":
+            return self._subcutaneous_protocol(t, y)
+        else:
+            raise ValueError(f"Unsupported dosing method: {model.method}")
 
-    value: numeric, optional
-        an example paramter
+    def _intravenous_protocol(self, t, y):
+        model = self.model
+        q_c = y[0]
+        q_p = y[1:]
+        transitions = []
+        dqp_dts = []
+        for i in range(0, model.ncomp):
+            transitions.append(model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i]))
+            dqp_dts.append(transitions[i])
+        dqc_dt = model.dose(t, model.X) - q_c / model.V_c * model.CL - np.sum(transitions)
 
-    """
-    def __init__(self, value=43):
-        self.value = value
+        return [dqc_dt, *dqp_dts]
 
+    def _subcutaneous_protocol(self, t, y):
+        model = self.model
+        q0, q_c, = y[0:2]
+        q_p = y[2:]
+        transitions = []
+        dqp_dts = []
+        for i in range(0, model.ncomp):
+            transitions.append(model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i]))
+            dqp_dts.append(transitions[i])
+        dq0_dt = model.dose(t, model.X) - (model.ka * q0)
+        dqc_dt = (model.ka * q0) - q_c / model.V_c * model.CL - np.sum(transitions)
+
+        return [dqc_dt, *dqp_dts, dq0_dt]
+    

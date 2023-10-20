@@ -17,4 +17,3 @@ class Model:
 
     def dose(self, t, X):
             return X
-

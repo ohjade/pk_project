@@ -17,9 +17,10 @@ def get_version():
     import sys
 
     sys.path.append(os.path.abspath("pkmodel"))
-    from pkmodel.version_info import VERSION as version
+    # from pkmodel.version_info import VERSION as version
 
-    sys.path.pop()
+    # sys.path.pop()
+    version = "2.2.2"  # temporary change to allow installation workflow
 
     return version
 

@@ -39,9 +39,10 @@ setup(
     # Version
     version=get_version(),
 
-    description='PKModel is a Python library for specifying, solving, and visualizing the solutions of pharmacokinetic (PK) models. It provides a flexible framework for modeling the distribution and elimination of drugs in the body.',
+    description='PKModel is a Python library ',
 
-    long_description=get_readme(),
+    long_description=open('README.rst').read(),
+    long_description_content_type='text/x-rst',
 
     license='MIT license',
 

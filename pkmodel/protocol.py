@@ -22,9 +22,10 @@ class Protocol:
             next_val = model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i])
             transitions.append(next_val)
             dqp_dts.append(transitions[i])
-        # fmt: off
-        dqc_dt = model.dose(t, model.X) - q_c / model.V_c * model.CL - np.sum(transitions)
-        # fmt: on
+
+        term1 = model.dose(t, model.X)
+        term2 = q_c / model.V_c * model.CL
+        dqc_dt = term1 - term2 - np.sum(transitions)
 
         return [dqc_dt, *dqp_dts]
 
@@ -39,7 +40,9 @@ class Protocol:
             transitions.append(next_val)
             dqp_dts.append(transitions[i])
         dq0_dt = model.dose(t, model.X) - (model.ka * q0)
-        # fmt: off
-        dqc_dt = (model.ka * q0) - q_c/model.V_c * model.CL - np.sum(transitions)
-        # fmt: on
+
+        term1 = model.ka * q0
+        term2 = q_c / model.V_c * model.CL
+        dqc_dt = term1 - term2 - np.sum(transitions)
+
         return [dqc_dt, *dqp_dts, dq0_dt]

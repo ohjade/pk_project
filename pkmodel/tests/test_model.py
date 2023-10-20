@@ -6,6 +6,7 @@ class ModelTest(unittest.TestCase):
     """
     Tests the :class:`Model` class.
     """
+
     def test_create(self):
         """
         Tests Model creation.
@@ -13,5 +14,6 @@ class ModelTest(unittest.TestCase):
         model = pk.Model()
         self.assertEqual(model.value, 42)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

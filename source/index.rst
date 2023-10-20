@@ -6,6 +6,9 @@
 Welcome to pk_project's documentation!
 ======================================
 
+PKModel is a Python library for specifying, solving, and visualizing the solutions of pharmacokinetic (PK) models. 
+It provides a flexible framework for modeling the distribution and elimination of drugs in the body.
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

@@ -2,7 +2,6 @@
 # Model class
 #
 
-
 class Model:
     def __init__(self, name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka):
         self.name = name
@@ -25,3 +24,5 @@ class Model:
 
     def dose(self, t, X):
         return X
+    
+    #Made new model.py file to test why my scripts are running on an old version of model.py despite updating in git

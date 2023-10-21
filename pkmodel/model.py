@@ -10,7 +10,7 @@ class Model:
         # dosing protocol
         self.method = method
         # transition rate between central and peripheral compartment(s)
-        self.Q_p = [Q_p] if not isinstance(Q_p, list) else Q_p
+        self.Q_p = [Q_p] if not isinstance(Q_p, list) else Q_p 
         # volume of central compartment
         self.V_c = V_c
         # volume of peripheral compartments(s)

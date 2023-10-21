@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 
+
 # I know there should be a way to just import these functions directly
 # for each test but I keep having problems with importing! So I'm just
 # gonna re-define the functions here for now (not good practice, I know :( )

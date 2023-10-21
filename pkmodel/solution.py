@@ -1,7 +1,7 @@
 # solution.py
 import numpy as np
-import scipy.integrate
-from protocol import Protocol
+import scipy
+from pkmodel.protocol import Protocol
 
 
 class Solver:

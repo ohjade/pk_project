@@ -1,11 +1,12 @@
 import unittest
 import numpy as np
+from pkmodel.model import Model
+from pkmodel.solution import Solver
 
 
-# I know there should be a way to just import these functions directly
-# for each test but I keep having problems with importing! So I'm just
-# gonna re-define the functions here for now (not good practice, I know :( )
+# This test aims to act as an equation template to check our model against. If errors appear in this test, it's possible that our rhs equation has been edited/mistyped.
 
+# To do: parameterise tests to shorten code
 
 # functions:
 def dose(t, X):
@@ -19,10 +20,8 @@ def rhs(t, y, Q_p1, V_c, V_p1, CL, X):
     dqp1_dt = transition
     return [dqc_dt, dqp1_dt]
 
-
 t_eval = np.linspace(0, 1, 1000)
 y0 = np.array([0.0, 0.0])
-
 
 class TestRHS(unittest.TestCase):
     def test_rhs(self):
@@ -46,7 +45,7 @@ class TestRHS(unittest.TestCase):
         )
         expected_dqp1_dt = Q_p1 * ((y[0] / V_c - y[1] / V_p1))
         calculated_dqp1_dt = (
-            0  # Value calculated manually to ensure no errors in rhs equation
+            100  # Value calculated manually to ensure no errors in rhs equation
         )
 
         # Check if results match expected values

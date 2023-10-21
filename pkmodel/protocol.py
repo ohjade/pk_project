@@ -1,5 +1,6 @@
 # protocol.py
 import numpy as np
+from pkmodel.model import Model
 
 class Protocol:
     def evaluate(self, t, y):

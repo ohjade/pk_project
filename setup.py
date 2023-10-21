@@ -8,17 +8,19 @@ def get_version():
     """
     Get version number from the pkmodel module.
 
-    The easiest way would be to just ``import pkmodel ``, but note that this may
-    fail if the dependencies have not been installed yet. Instead, we've put
-    the version number in a simple version_info module, that we'll import here
+    The easiest way would be to just ``import pkmodel ``, but note that this
+    may fail if the dependencies have not been installed yet. Instead, we've
+    put the version number in a simple version_info module that we import here
     by temporarily adding the oxrse directory to the pythonpath using sys.path.
     """
     import os
     import sys
 
-    sys.path.append(os.path.abspath('pkmodel'))
-    from version_info import VERSION as version
-    sys.path.pop()
+    sys.path.append(os.path.abspath("pkmodel"))
+    # from pkmodel.version_info import VERSION as version
+
+    # sys.path.pop()
+    version = "2.2.2"  # temporary change to allow installation workflow
 
     return version
 
@@ -27,53 +29,44 @@ def get_readme():
     """
     Load README.md text for use as description.
     """
-    with open('README.md') as f:
+    with open("README.md") as f:
         return f.read()
 
 
 # Go!
 setup(
     # Module name (lowercase)
-    name='pkmodel_stupiders',
-
+    name="pkmodel_stupiders",
     # Version
     version=get_version(),
-
-    description='PKModel is a Python library ',
-
-    long_description=open('README.rst').read(),
-    long_description_content_type='text/x-rst',
-
-    license='MIT license',
-
-    author='Jamie, Yang, Jade, Lucy, Douglas',
-
-    maintainer='Martin Robinson', 
-
-    maintainer_email='martin.robinson@cs.ox.ac.uk',
-
-    url='https://github.com/SABS-R3/2020-software-engineering-projects-pk',
-
+    description="PKModel is a Python library ",
+    long_description=open("README.rst").read(),
+    long_description_content_type="text/x-rst",
+    license="MIT license",
+    author="Jamie, Yang, Jade, Lucy, Douglas",
+    maintainer="Martin Robinson",
+    maintainer_email="martin.robinson@cs.ox.ac.uk",
+    url="https://github.com/SABS-R3/2020-software-engineering-projects-pk",
     # Packages to include
-    packages=find_packages(include=('pkmodel', 'pkmodel.*')),
-
+    packages=find_packages(include=("pkmodel", "pkmodel.*")),
     # List of dependencies
     install_requires=[
         # Dependencies go here!
-        'numpy',
-        'matplotlib',
-        'scipy',
+        "numpy",
+        "matplotlib",
+        "scipy",
+        "pytest"
     ],
     extras_require={
-        'docs': [
+        "docs": [
             # Sphinx for doc generation. Version 1.7.3 has a bug:
-            'sphinx>=1.5, !=1.7.3',
+            "sphinx>=1.5, !=1.7.3",
             # Nice theme for docs
-            'sphinx_rtd_theme',
+            "sphinx_rtd_theme",
         ],
-        'dev': [
+        "dev": [
             # Flake8 for code style checking
-            'flake8>=3',
+            "flake8>=3",
         ],
     },
 )

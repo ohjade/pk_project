@@ -13,5 +13,6 @@ class TestModel(unittest.TestCase):
         test_model = Model("test_model", 1, "intravenous", 1, 1, 1, 1, 1, 1)
         sol = test_model.solve()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

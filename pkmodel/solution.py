@@ -3,8 +3,8 @@ import numpy as np
 import scipy.integrate
 from protocol import Protocol
 
-class Solver:
 
+class Solver:
     def __init__(self, model):
         self.model = model
 
@@ -22,6 +22,7 @@ class Solver:
         sol = scipy.integrate.solve_ivp(
             fun=lambda t, y: self.rhs(t, y),
             t_span=[t_eval[0], t_eval[-1]],
-            y0=y0, t_eval=t_eval
+            y0=y0,
+            t_eval=t_eval,
         )
         return sol

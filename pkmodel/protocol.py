@@ -1,8 +1,8 @@
 # protocol.py
 import numpy as np
 
-class Protocol:
 
+class Protocol:
     def evaluate(self, t, y):
         model = self.model
         if model.method == "intravenous":
@@ -19,23 +19,30 @@ class Protocol:
         transitions = []
         dqp_dts = []
         for i in range(0, model.ncomp):
-            transitions.append(model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i]))
+            next_val = model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i])
+            transitions.append(next_val)
             dqp_dts.append(transitions[i])
-        dqc_dt = model.dose(t, model.X) - q_c / model.V_c * model.CL - np.sum(transitions)
+
+        term1 = model.dose(t, model.X)
+        term2 = q_c / model.V_c * model.CL
+        dqc_dt = term1 - term2 - np.sum(transitions)
 
         return [dqc_dt, *dqp_dts]
 
     def _subcutaneous_protocol(self, t, y):
         model = self.model
-        q0, q_c, = y[0:2]
+        (q0, q_c) = y[0:2]
         q_p = y[2:]
         transitions = []
         dqp_dts = []
         for i in range(0, model.ncomp):
-            transitions.append(model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i]))
+            next_val = model.Q_p[i] * (q_c / model.V_c - q_p[i] / model.V_p[i])
+            transitions.append(next_val)
             dqp_dts.append(transitions[i])
         dq0_dt = model.dose(t, model.X) - (model.ka * q0)
-        dqc_dt = (model.ka * q0) - q_c / model.V_c * model.CL - np.sum(transitions)
+
+        term1 = model.ka * q0
+        term2 = q_c / model.V_c * model.CL
+        dqc_dt = term1 - term2 - np.sum(transitions)
 
         return [dqc_dt, *dqp_dts, dq0_dt]
-    

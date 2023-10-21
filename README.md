@@ -32,11 +32,23 @@ pip install -i https://test.pypi.org/simple/ pkmodel-stupiders
 ```
 ## Running the model
 Specify the model parameters by changing the arguments of the Model class
-A description of each of the parameters is given in model.py
+A description of each of the parameters is given in model.py, but it is summarised here for reference.
 
-`default = Model("default", 2, "intravenous", [1, 2], 1, [1, 2], 1, 1, 1)`
+The parameters are:
+1. ncomp, the number of peripheral compartments being modelled.
+2. method, the dosing protocol being used (intravenous or subcutaneous dosing).
+3. Q_p, the transition rate between the central and peripheral compartment(s).
+4. Vc [mL], the volume of the central compartment
+5. V_p [mL], the volume of the peripheral compartment(s).
+6. CL [mL/h], the clearance/elimination rate from the central compartment.
+7. X, the dosage amount.
+8. Ka, the dose absorption rate.
+
+These are passed to the Model as follows:
+`Model(model_name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka)`
 
 Generate the plot simply by passing your model to the plot class
+
 `plot = Plot(default)`
 
 ## API Documentation
@@ -49,12 +61,7 @@ The `Model` class represents a pharmacokinetic model. It provides methods for sp
 
 Initialize a new pharmacokinetic model.
 
-Parameters:
-1. The dose function Dose(t), which could consist of instantaneous doses of X ng of the drug at one or more time points, or a steady application of X ng per hour over a given time period, or some combination.
-2. Vc [mL], the volume of the central compartment
-3. Vp1 [mL], the volume of the first peripheral compartment
-4. CL [mL/h], the clearance/elimination rate from the central compartment
-5. Qp1  [mL/h], the transition rate between central compartment and peripheral compartment 1
+
 
 Example:
 

@@ -30,7 +30,14 @@ Install the library using pip:
 ```bash
 pip install -i https://test.pypi.org/simple/ pkmodel-stupiders
 ```
+## Running the model
+Specify the model parameters by changing the arguments of the Model class
+A description of each of the parameters is given in model.py
 
+`default = Model("default", 2, "intravenous", [1, 2], 1, [1, 2], 1, 1, 1)`
+
+Generate the plot simply by passing your model to the plot class
+`plot = Plot(default)`
 
 ## API Documentation
 
@@ -59,8 +66,7 @@ model = pkmodel.Model(...)
 ```
 
 ## Testing
-Run tests in the Terminal with with `python -m unittest <path/to/test.py>`
-(I'll write more info on the different test files here)
+Run tests with `python -m unittest <path/to/test.py>`
 
 ## License
 

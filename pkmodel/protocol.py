@@ -1,7 +1,6 @@
 # protocol.py
 import numpy as np
 
-
 class Protocol:
     def evaluate(self, t, y):
         model = self.model

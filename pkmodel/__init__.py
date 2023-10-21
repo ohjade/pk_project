@@ -1,7 +1,7 @@
-"""pkmodel is a Pharmokinetic modelling library.
+"""pkmodel is a Pharmacokinetic modelling library.
 
 It contains functionality for creating, solving, and visualising the solution
-of Parmokinetic (PK) models
+of Pharmacokinetic (PK) models
 
 """
 # Import version info

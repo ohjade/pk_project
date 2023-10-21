@@ -1,6 +1,5 @@
 import unittest
 import pkmodel as pk
-
 class ModelTest(unittest.TestCase):
     """
     Tests the :class:`Model` class.
@@ -16,3 +15,6 @@ class ModelTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    
+
+

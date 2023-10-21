@@ -15,12 +15,31 @@ PK enables the following processes to be quantified:
 
 These are often referred to as ADME, and taken together describe the drug concentration in the body when medicine is prescribed. These ADME processes are typically described by zeroth-order or first-order rate reactions modelling the dynamics of the quantity of drug qq, with a given rate parameter kk, for example:
 
-$$dq/dt=-k*,$$
-$$dq/dt=-kq$$
+$$ \frac{dq}{dt} = -k^{*} $$
+
+$$ \frac{dq}{dt} = -kq $$
 
 The body itself is modelled as one or more compartments, each of which is defined as a kinetically homogeneous unit (these compartments do not relate to specific organs in the body, unlike Physiologically based pharmacokinetic, PBPK, modeling). There is typically a main central compartment into which the drug is administered and from which the drug is excreted from the body, combined with zero or more peripheral compartments to which the drug can be distributed to/from the central compartment (See Fig 2). Each peripheral compartment is only connected to the central compartment.
 
 ![pk2](https://github.com/ohjade/pk_project/assets/120578702/e146e1b2-1b67-4240-95c9-6ac7a8224aad)
+
+The following example PK model describes the two-compartment model shown diagrammatically in Fig 2. The time-dependent variables to be solved are the drug quantity in the central and peripheral compartments, *q<sub>c</sub>* and *q<sub>p1</sub>* (units: [ng]) respectively.
+
+$$ \frac{dq}{dt} = Dose(t) - \frac{q_{c}}{V_{c}}CL - Q_{p1} (\frac{q_{c}}{V_{c}} - \frac{q_{p1}}{V_{p1}}), $$
+
+$$ \frac{dq_{p1}}{dt} = Q_{p1} (\frac{q_{c}}{V_{c}} - \frac{q_{p1}}{V_{p1}}) . $$
+
+This model describes an *intravenous bolus* dosing protocol, with a linear clearance from the central compartment (non-linear clearance processes are also possible, but not considered here). 
+
+Another example model we will show uses subcutaneous dosing, and adds an additional compartment from which the drug is absorbed to the central compartment
+
+$$ \frac{dq_{0}}{dt} = Dose(t) - k_{\alpha}q_{0}, $$
+
+$$ \frac{dq_{c}}{dt} = k_{\alpha}q_{0} - \frac{q_{c}}{V_{c}}CL - Q_{p1} (\frac{q_{c}}{V_{c}} - \frac{q_{p1}}{V_{p1}}), $$
+
+$$ \frac{dq_{p1}}{dt} = Q_{p1} - (\frac{q_{c}}{V_{c}} - \frac{q_{p1}}{V_{p1}}). $$
+
+where *k<sub>α</sub>* [/h] is the “absorption” rate for the s.c dosing.
 
 
 ## Installation
@@ -74,6 +93,7 @@ model = pkmodel.Model(...)
 
 ## Testing
 Run tests with `python -m unittest <path/to/test.py>`
+Testing is still in progress. You can view current testing code via the unit-test-2 branch.
 
 ## License
 

@@ -50,7 +50,8 @@ Install the library using pip:
 pip install -i https://test.pypi.org/simple/ pkmodel-stupiders
 ```
 ## Running the model
-Specify the model parameters by changing the arguments of the Model class
+Specify the model parameters by changing the arguments of the Model class.
+
 A description of each of the parameters is given in model.py, but it is summarised here for reference.
 
 The parameters are:

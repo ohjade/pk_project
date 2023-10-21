@@ -65,11 +65,11 @@ The parameters are:
 8. Ka, the dose absorption rate.
 
 These are passed to the Model as follows:
-`Model(model_name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka)`
+`model_name = Model(model_name, ncomp, method, Q_p, V_c, V_p, CL, X, Ka)`
 
 Generate the plot simply by passing your model to the plot class
 
-`plot = Plot(default)`
+`plot = Plot(model_name)`
 
 ## API Documentation
 
